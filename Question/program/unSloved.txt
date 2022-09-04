@@ -1,3 +1,21 @@
+
+福义的那个mobax $脚本实现原理  其实就是普通的shell脚本用法  export变量然后对变量赋值 最后在脚本里使用这个变量就行了
+https://blog.csdn.net/Dust_Evc/article/details/125277589
+例子：
+命令行里执行:
+export rls
+rls=8
+echo $rls
+最后直接在脚本里使用就行了
+//其实系统本身就是一个shell（平时直接运行shell脚本的方式就是它的子shell，采用source方式是在本shell执行的） 因此export这种方式是父shell将变量传到子shell，没有export的变量就是shell的局部变量
+
+
+用户态中断：
+//这个问题是可以通过用户态起个任务处理的，不过可能在中断发生后需要内核支持
+
+能看懂各种函数或命令的help / man文件才是当务之急
+
+
 1.内核编程知识与尝试
 2.阅读经典文档
 3.内核的调试方法收集与使用
@@ -10,9 +28,14 @@ kgdb使用
 编写网络驱动
 编写系统调用
 使用debugfs
+编写ioctrl
 
 4.内核编译和制作  ko等
 5.网络驱动
  使用通知链
  使用macvlan  模式等 是否基于host等
  网络驱动的调试方法
+ 
+
+模拟硬件xx软件使用
+pcie书籍阅读

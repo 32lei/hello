@@ -1,0 +1,7 @@
+who //查看计算机上的终端信息，who -m 查看当前属于哪个终端(等同于 who am i  或者 tty)
+dashboard memory -output /dev/pts/2   //可以把组件移到别的窗口去 ，试了以下组件名是小写
+//查看地址 0x40000000 长度为0x1000 看上去现在只能显示单个字节，可以研究下不同的显示格式 提交一下代码给作者
+dashboard memory watch 0x40000000 0x1000
+参考链接：https://zhuanlan.zhihu.com/p/435918702
+
+dashboard -style syntax_highlighting='friendly'  //可能需要先pip install pygments

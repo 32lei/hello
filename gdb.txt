@@ -1,0 +1,76 @@
+gdb
+
+n  执行单行（不进入函数）
+s  执行单行（遇到函数会进入）
+ni 执行单行汇编 
+si 执行单行汇编（这个也会进入）
+u 可以提前结束循环（前提是已经执行到循环的最后一行）
+
+return val（可以是表达式）可以提前结束当前函数并返回特定的值（不会执行后面的指令）
+finish/fin都是完成当前函数
+
+info address fun 查看符号fun的地址
+
+break(b)    行号|函数名|程序地址 | +/-offset | filenam:func   [if 条件]   #   在指定位置设置断点
+b fun  对函数设置断点
+b lineNum / b file:lineNum  对指定行加断点
+i b    查看当前设置的断点 info breakpoints的简化写法
+d no.  去掉断点
+
+这非常方便于程序的调试，可以在程序运行的任意位置设置断点，并在该断点用GDB产生一个信号量，这种精确地在某处产生信号非常有利程序的调试。
+signal signal //UNIX的系统信号量通常从1到15。所以取值也在这个范围。
+single命令和shell的kill命令不同，系统的kill命令发信号给被调试程序时，是由GDB截获的，而single命令所发出一信号则是直接发给被调试程序的。 
+
+
+敲函数 （区别是当函数返回值是void的时候 print还是会打印返回值）  注意格式函数的话要加（）
+call expr
+print expr
+
+x /<n/f/u> <addr>  查看内存地址相关的命令 nfu（实际传其他参数）可以一起使用   https://blog.csdn.net/xiaozhiwise/article/details/122732433
+
+gdb还能采样 追踪(tracepoint) 性能分析（实际效果和perf相比 不清楚）
+
+修改变量可以使用print（缩写p）：
+print x=4
+
+print 打印变量、字符串、表达式等的值，可简写为p
+p count 打印count的值
+p cou1+cou2+cou3 打印表达式值
+print接受一个表达式，GDB会根据当前的程序运行的数据来计算这个表达式，表达式可以是当前程序运行中的const常量、变量、函数等内容。但是GDB不能使用程序中定义的宏。
+
+查看变量历史：
+show values  //记录的是print的历史
+
+除了修改变量 还能修改分支：（jump的原理就是修改eip/pc寄存器的值）
+jump linespec 跳转执行  指定下一条语句的运行点。可以是文件的行号，可以是file:line格式，可以是+num这种偏移量格式。表示下一条运行语句从哪里开始。
+jump *address  这里的是代码行的内存地址
+set $pc = 0×485
+
+
+查看停止原因:
+info program
+
+观察点(watchpoint): 表达式的值修改时会被中断
+watch   表达式          #   当表达式被写入，并且值被改变时中断
+rwatch 表达式          #   当表达式被读时中断
+awatch 表达式          #   当表达式被读或写时中断
+info watchpoints    
+
+
+显示帧信息:
+info    frame       #   显示当前帧信息
+info    frame addr #   显示指定地址的帧信息
+info    args        #   显示帧的参数
+info    locals      #   显示局部变量信息
+info    catch       #   显示本帧异常信息
+
+寄存器:
+into registers      #   除了浮点寄存器外所有寄存器
+info all-registers #   所有寄存器
+into registers 寄存器名     #   指定寄存器内容
+
+
+
+https://blog.csdn.net/yangzhao0001/article/details/49178949
+https://blog.csdn.net/whatday/article/details/89307320
+

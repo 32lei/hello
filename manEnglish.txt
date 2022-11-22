@@ -1,0 +1,8 @@
+invert 取反 倒转
+utility 程序 效用
+append 追加
+incremental 增量
+backups 备份
+Handle 处理
+snapshot 快照
+implie 意味 暗示
